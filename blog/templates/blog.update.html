@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %} 
+    
+    <div class='container'>
+       <h3 class='text-center mt-4 mb-4'> Edit Blog </h3>
+        <div class='card shadow p-3 mb-5 bg-white rounded b-card'>
+           <div class='card-body'>
+               <form method='post' enctype='multipart/form-data'>
+                  {% csrf_token %}
+                  <div class='row'>
+                      <div class='col-md-12'>
+                          {{ form.media}}
+                          {{form.as_p}}
+                      </div>
+                      <div class='col-sm-12 mt-3'>
+                        <button class='btn btn-info'> Edit </button>
+                      </div>
+                  </div>
+                </form>
+           </div>  
+         </div>
+     </div>
+ {% include 'footer.html' %}
+ {% endblock body %}

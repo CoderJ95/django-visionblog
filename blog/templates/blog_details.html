@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<section>
+    <div class='container mt-4'>
+        <div class='row'>
+            <div class='col-xl-8  mx-auto text-center'>
+                <img class='card-img-top' src="{{ blog_obj.image.url}}">
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-xl-8 col-lg-10  mx-auto'>
+                <div class='text-content mt-5'>
+                    <h4> {{blog_obj.title}} </h4>
+                    <p class='text-center font-weight-light' style='background-color:#E3E3E3'>{{ blog_obj.content|safe }} </p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class='col-xl-8 col-lg-10  mx-auto'>
+                <a data-toggle="collapse" href="#multiCollapseExample1" aria-expanded="false"
+                    aria-controls="multiCollapseExample1">
+                    <h5> Add Comments </h5>
+                </a>
+                <div class="row">
+                    <div class="col">
+                        <div class="collapse multi-collapse" id="multiCollapseExample1">
+                            <form method='post' action=''>
+                                {% csrf_token %}
+                                {{ form.as_p }}
+
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary">Comment</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container my-3">
+        <div class="row">
+            <div class='col-xl-8 col-lg-10  mx-auto'>
+                {% with blog_obj.comments.count as total_comments %}
+                <h3> {{ total_comments }} Comments </h3>
+                {% endwith %}
+
+                <div class="col-md-12">
+                    {% for comment in blog_obj.comments.all  %}
+                    <div class="media mt-4"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview"
+                            src="https://i.imgur.com/stD0Q19.jpg" style='width:60px;' />
+                        <div class="media-body">
+                            <div class="row">
+                                <div class="col-8 d-flex">
+                                    <h5 class='mx-2'>{{comment.name}}</h5>
+                                    <span>- <small class="text-muted"> {{ comment.created_at }} </small></span>
+                                </div>
+                            </div>
+                            <div class='mx-2'> {{comment.comment}} </div>
+                        </div>
+                    </div>
+                    <hr>
+                    {% empty%}
+                    <p> No comments yet!
+
+                        {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+{% include 'footer.html' %}
+{% endblock body %}

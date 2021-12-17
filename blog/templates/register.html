@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Style -->
+    {% load static %}
+    <link rel='stylesheet' type='text/css' href="{% static 'css/blog.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Style End-->
+
+</head>
+
+<body class='bg-image'>
+
+    <div class=''>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-5'>
+                    <div class='shadow'>
+                        <form method='POST' class='login-form'>
+                            {% csrf_token %}
+                            <h2 class='text-center text-head-sign'> SignUp </h2>
+                            <div class='input-group'>
+                                <span class='input-group-addon'><span class='bx bx-user'></span></span>
+                                <input type='text' name='username' placeholder='Username' class='form-control'>
+                            </div>
+                            <div class='input-group mt-4'>
+                                <span class='input-group-addon'><span class='bx bx-at'></span></span>
+                                <input type='email' name='email' placeholder='Email' class='form-control'>
+                            </div>
+                            <div class='input-group mt-4'>
+                                <span class='input-group-addon'><span class='bx bx-lock'></span></span>
+                                <input type='password' name='password' placeholder='Password' class='form-control'>
+                            </div>
+                            <div class='input-group mt-4'>
+                                <span class='input-group-addon'><span class='bx bx-lock'></span></span>
+                                <input type='password' name='repassword' placeholder='Re-Password' class='form-control'>
+                            </div>
+
+                            <div class='row mt-4'>
+                                <button type='submit' class='login_button'> SignUp </button>
+                            </div>
+
+                            {% if messages %}
+                            {% for message in messages  %}
+                            <p class='para'> {{message}} </p>
+                            {% endfor %}
+                            {% endif %}
+
+                        </form>
+
+                        <div class="login_account mb-5">
+                            <span> Don't have an Account? </span>
+                            <a href="{% url 'login' %}"> <span class="font-weight-bold mx-2">Sign In</span> </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

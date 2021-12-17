@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container">
+    <h2 class='text-center mt-5'> Our Blog </h2>
+    <div class="row">
+
+    {% for blog in pages  %}
+
+        <div class='col-md-4  mt-4'>
+            <div class="card">
+                <img class='card-img-top' src="{{ blog.image.url }}">
+                <div class="card-body">
+                    <h4 class="card-title">{{ blog.title }}</h4>
+                    <p class="card-text"> {{ blog.content|striptags|slice:':90' }} </p>
+                    <p class="card-text"><small class="text-muted"> {{ blog.created_at }} </small></p>
+
+                    <a href="{% url 'blog_details' slug=blog.slug %}" class='btn_style mb-2 mt-2'>READ MORE </a>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    </div>
+    <br /><br />
+    <div class="pagination">
+        {% if pages.has_previous %} <a class='text-light' href="{% url 'blog' %}?page={{pages.previous_page_number}}">
+            <button class="bttn btn btn-light">Older posts</button></a>
+        {% else %}
+        <a class='text-light' href='?page=1'><button class="bttn btn btn-light">Older posts</button></a>
+        {% endif %}
+
+        {% if pages.has_next %}<a class='ml-auto text-light' href="{% url 'blog' %}?page={{pages.next_page_number}}">
+            <button class="bttn btn btn-light float-right">Newer posts </button></a>
+        {% else %}
+        <a class='ml-auto' href='?page={{pages.paginator.num_pages}}'><button class="bttn btn btn-light float-right">Newer posts </button></a>
+        {% endif %}
+    </div>
+    
+</div>
+<br /><br />
+{% include 'footer.html' %}
+{% endblock body %}
